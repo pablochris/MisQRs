@@ -26,8 +26,10 @@
       // Esta función se ejecuta cuando el documento HTML está completamente cargado
       // Aquí puedes colocar cualquier código que necesites ejecutar al cargar la página
       
-      // Llamar a la función para generar el código QR dinámico
-      generateDynamicQR();
+      // Llamar a la función para generar y actualizar el código QR automáticamente cada 10 segundos
+      setInterval(function() {
+        generateDynamicQR();
+      }, 10000); // 10000 milisegundos = 10 segundos
     });
 
     function generateDynamicQR() {
