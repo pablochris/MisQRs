@@ -21,7 +21,43 @@
     <div id="qrcode"></div>
   </div>
   
-  <script src="script.js"></script>
+  <script>
+    $(document).ready(function() {
+      // Esta función se ejecuta cuando el documento HTML está completamente cargado
+      // Aquí puedes colocar cualquier código que necesites ejecutar al cargar la página
+      
+      // Llamar a la función para generar el código QR dinámico
+      generateDynamicQR();
+    });
+
+    function generateDynamicQR() {
+      // Realizar la solicitud a la API para obtener la URL dinámica
+      $.get("https://api.qrserver.com/v1/create-qr-code/?data=dynamic_data_here", function(response) {
+        // Comprobar si la solicitud fue exitosa
+        if (response.data) {
+          // Obtener la URL generada
+          var qrData = response.data;
+          
+          // Crear el código QR dinámico utilizando la biblioteca qrcode.js
+          var qr = new QRCode(document.getElementById("qrcode"), {
+            text: qrData,
+            width: 200,
+            height: 200
+          });
+          
+          // Mostrar el elemento que contiene el código QR
+          $("#qrEdit").show();
+          
+          // Actualizar el enlace de la URL QR
+          $("#urlQR").attr("href", qrData);
+          $("#urlQR").text(qrData);
+        } else {
+          // Manejar el caso de error
+          console.error("Error al generar el código QR");
+        }
+      });
+    }
+  </script>
   
 </body>
 </html>
